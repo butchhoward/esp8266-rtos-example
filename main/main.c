@@ -14,5 +14,6 @@
 void app_main()
 {
     printf("Blinky!\n");
+    led_setup();
     led_on();
 }
