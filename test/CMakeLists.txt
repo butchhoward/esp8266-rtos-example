@@ -30,6 +30,7 @@ include_directories(SYSTEM $ENV{IDF_PATH}/components/esp8266/include)
 
 include_directories(SYSTEM $ENV{IDF_PATH}/components/heap/include)
 include_directories(SYSTEM $ENV{IDF_PATH}/components/heap/port/esp8266/include)
+include_directories(SYSTEM $ENV{IDF_PATH}/components/spi_flash/include)
 
 # these seem to be ports to bridge between ESP-IDF and the ESP8266 (?)
 include_directories(SYSTEM $ENV{IDF_PATH}/components/freertos/port/esp8266/include) 
