@@ -3,5 +3,6 @@
 
 void led_setup();
 void led_on(void);
+void led_off(void);
 
 #endif

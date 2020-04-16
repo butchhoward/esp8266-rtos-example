@@ -9,6 +9,11 @@ void led_on(void)
     gpio_set_level_impl(LED_BUILTIN, LED_ON_LEVEL);
 }
 
+void led_off(void)
+{
+    gpio_set_level_impl(LED_BUILTIN, LED_OFF_LEVEL);
+}
+
 void led_setup(void)
 {
     gpio_set_direction_impl(LED_BUILTIN, GPIO_MODE_OUTPUT);

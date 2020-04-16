@@ -14,12 +14,15 @@ TEST_GROUP(led);
 
 TEST_SETUP(led) 
 {
+    FFF_RESET_HISTORY();
     RESET_FAKE(gpio_set_level_mock);
     RESET_FAKE(gpio_set_direction_mock);
 }
 
 TEST_TEAR_DOWN(led) 
 {
+    gpio_set_level_impl = gpio_set_level;
+    gpio_set_direction_impl = gpio_set_direction;
 }
 
 TEST(led, on_turns_builtin_led_on)
@@ -29,6 +32,15 @@ TEST(led, on_turns_builtin_led_on)
     TEST_ASSERT_EQUAL(1, gpio_set_level_mock_fake.call_count);
     TEST_ASSERT_EQUAL(LED_BUILTIN, gpio_set_level_mock_fake.arg0_history[0]);
     TEST_ASSERT_EQUAL(LOW_LEVEL, gpio_set_level_mock_fake.arg1_history[0]);
+}
+
+TEST(led, off_turns_builtin_led_off)
+{
+    gpio_set_level_impl = gpio_set_level_mock;
+    led_off();
+    TEST_ASSERT_EQUAL(1, gpio_set_level_mock_fake.call_count);
+    TEST_ASSERT_EQUAL(LED_BUILTIN, gpio_set_level_mock_fake.arg0_history[0]);
+    TEST_ASSERT_EQUAL(HIGH_LEVEL, gpio_set_level_mock_fake.arg1_history[0]);
 }
 
 TEST(led, setup_configures_led_output)
@@ -44,6 +56,7 @@ TEST(led, setup_configures_led_output)
 TEST_GROUP_RUNNER(led) 
 {
     RUN_TEST_CASE(led, on_turns_builtin_led_on);
+    RUN_TEST_CASE(led, off_turns_builtin_led_off);
     RUN_TEST_CASE(led, setup_configures_led_output);
 
 }

@@ -16,4 +16,6 @@ void app_main()
     printf("Blinky!\n");
     led_setup();
     led_on();
+    vTaskDelay(2000 / portTICK_RATE_MS);
+    led_off();
 }
