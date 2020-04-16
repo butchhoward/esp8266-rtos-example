@@ -22,6 +22,8 @@ See the README.md file in the upper level 'examples' directory for more informat
  'make monitor' baud rate (74880 bps)
 ```
 
+Set the changes from the defaults in the make/cmake files.
+
 # Do the Doing
 
 ## Install and configure the ESP8266_RTOS_SDK
@@ -40,13 +42,20 @@ pyenv install 3.7.2
 pyenv global 3.7.2
 ```
 
-## Build 
+## Build For Flash
 Configure the system using the settings above.
 Build and flash to device
 Run monitor to see output
 
 ```shell
-make menuconfig
-make flash
-make monitor
+make defconfig flash
+```
+
+## Build For Test
+Configure the system using the settings above.
+Build and flash to device
+Run monitor to see output
+
+```shell
+make -f Makefile.tdd
 ```
