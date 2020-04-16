@@ -1,9 +1,17 @@
-# Hello World Example
+# Blinky example using the ESP8266 RTOS SDK
 
-Starts a FreeRTOS task to print "Hello World"
+Working thorugh building the project starting from the hello-world example and moving along to add something useful as an example.
 
-See the README.md file in the upper level 'examples' directory for more information about examples.
+Checkout the initial commit and step through the commits to see the progression.
 
+```shell
+git checkout d7c3c33
+git crawl master
+# look at code
+git crawl master
+# ...
+```
+(using the cool [git-crawl](https://github.com/magnusstahre/git-stuff))
 
 # Configuration
 
