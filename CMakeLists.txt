@@ -8,7 +8,7 @@ if (NOT TDD)
     include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 endif()
 
-project(morse_code)
+project(blinky)
 
 if (TDD)
   include(tdd.cmake)

@@ -45,6 +45,7 @@ include_directories(${PROJECT_SOURCE_DIR}/build-test/include)
 
 # Directories needed for this project
 include_directories(${PROJECT_SOURCE_DIR}/main)
+include_directories(${PROJECT_SOURCE_DIR}/components/led/include)
 
 # FILE GLOBing: a unix concept where all files matching a wildcard
 # pattern are collected as a group.
@@ -58,7 +59,10 @@ FILE(GLOB TEST_SRC *.c)
 FILE(GLOB MOCK_SRC ${MOCK_DIR}/*.c)
 
 # A list of all src files in the System Under Test
-FILE(GLOB SUT_SRC ../main/*.c)
+FILE(GLOB SUT_SRC 
+    ../main/*.c 
+    ../components/led/*.c
+)
 
 # Tells cmake that we want to create an executable named 
 # <PROJECTNAME>-test (defined one level up).
