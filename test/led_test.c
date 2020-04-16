@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "led.h"
+#include "led_internal.h"
 
 DEFINE_FFF_GLOBALS;
 

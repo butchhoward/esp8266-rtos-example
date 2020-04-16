@@ -1,5 +1,5 @@
 #include "led.h"
-
+#include "led_internal.h"
 
 esp_err_t (*gpio_set_level_impl)(gpio_num_t, uint32_t) = gpio_set_level;
 
