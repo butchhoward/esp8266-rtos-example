@@ -9,9 +9,10 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
+#include "led.h"
 
 void app_main()
 {
     printf("Blinky!\n");
+    led_on();
 }
