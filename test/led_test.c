@@ -54,6 +54,28 @@ TEST(led, off_turns_builtin_led_off)
     TEST_ASSERT_EQUAL(HIGH_LEVEL, gpio_set_level_mock_fake.arg1_history[0]);
 }
 
+TEST(led, on_turns_GPIO16_led_on)
+{
+    gpio_set_level_impl = gpio_set_level_mock;
+
+    led_on_pin(GPIO_NUM_16);
+    
+    TEST_ASSERT_EQUAL(1, gpio_set_level_mock_fake.call_count);
+    TEST_ASSERT_EQUAL(GPIO_NUM_16, gpio_set_level_mock_fake.arg0_history[0]);
+    TEST_ASSERT_EQUAL(LOW_LEVEL, gpio_set_level_mock_fake.arg1_history[0]);
+}
+
+TEST(led, off_turns_GPIO16_led_off)
+{
+    gpio_set_level_impl = gpio_set_level_mock;
+
+    led_off_pin(GPIO_NUM_16);
+
+    TEST_ASSERT_EQUAL(1, gpio_set_level_mock_fake.call_count);
+    TEST_ASSERT_EQUAL(GPIO_NUM_16, gpio_set_level_mock_fake.arg0_history[0]);
+    TEST_ASSERT_EQUAL(HIGH_LEVEL, gpio_set_level_mock_fake.arg1_history[0]);
+}
+
 
 TEST(led, setup_configures_led_output)
 {
@@ -65,12 +87,22 @@ TEST(led, setup_configures_led_output)
     TEST_ASSERT_EQUAL(GPIO_MODE_OUTPUT, gpio_config_arg.mode);
 }
 
+TEST(led, setup_configures_led_output_for_pin16)
+{
+    led_setup_pin(GPIO_NUM_16);
+
+    gpio_config_t gpio_config_arg = get_gpio_config_fake_last_arg();
+
+    TEST_ASSERT_EQUAL((1ULL << GPIO_NUM_16), gpio_config_arg.pin_bit_mask);
+    TEST_ASSERT_EQUAL(GPIO_MODE_OUTPUT, gpio_config_arg.mode);
+}
+
 
 TEST_GROUP_RUNNER(led) 
 {
     RUN_TEST_CASE(led, on_turns_builtin_led_on);
     RUN_TEST_CASE(led, off_turns_builtin_led_off);
     RUN_TEST_CASE(led, setup_configures_led_output);
-    // RUN_TEST_CASE(led, setup_really_configures_led_output);
+    RUN_TEST_CASE(led, setup_configures_led_output_for_pin16);
 
 }

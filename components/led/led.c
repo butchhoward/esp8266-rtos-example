@@ -7,21 +7,36 @@ esp_err_t (*gpio_config_impl)(const gpio_config_t *gpio_cfg) = gpio_config;
 
 void led_on(void)
 {
-    gpio_set_level_impl(LED_BUILTIN, LED_ON_LEVEL);
+    led_on_pin(LED_BUILTIN);
 }
 
 void led_off(void)
 {
-    gpio_set_level_impl(LED_BUILTIN, LED_OFF_LEVEL);
+    led_off_pin(LED_BUILTIN);
+}
+
+void led_on_pin(gpio_num_t pin)
+{
+    gpio_set_level_impl(pin, LED_ON_LEVEL);
+}
+
+void led_off_pin(gpio_num_t pin)
+{
+    gpio_set_level_impl(pin, LED_OFF_LEVEL);
 }
 
 void led_setup(void)
+{
+    led_setup_pin(LED_BUILTIN);
+}
+
+void led_setup_pin(gpio_num_t pin)
 {
     //must configure IO before using it (the built in leds worked by accident)
     gpio_config_t io_conf;
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = ( 1ULL << LED_BUILTIN );
+    io_conf.pin_bit_mask = ( 1ULL << pin );
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
 
@@ -30,3 +45,4 @@ void led_setup(void)
         printf("gpio_config failed\n");
     }
 }
+
