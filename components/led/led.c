@@ -4,6 +4,8 @@
 esp_err_t (*gpio_set_level_impl)(gpio_num_t, uint32_t) = gpio_set_level;
 esp_err_t (*gpio_set_direction_impl)(gpio_num_t, gpio_mode_t) = gpio_set_direction;
 esp_err_t (*gpio_config_impl)(const gpio_config_t *gpio_cfg) = gpio_config;
+void (*vTaskDelay_impl)(const TickType_t xTicksToDelay) = vTaskDelay;
+
 
 void led_on(void)
 {
@@ -15,12 +17,14 @@ void led_off(void)
     led_off_pin(LED_BUILTIN);
 }
 
-void led_on_pin(gpio_num_t pin)
+void (*led_on_pin)(gpio_num_t pin) = led_on_pin_impl;
+void led_on_pin_impl(gpio_num_t pin)
 {
     gpio_set_level_impl(pin, LED_ON_LEVEL);
 }
 
-void led_off_pin(gpio_num_t pin)
+void (*led_off_pin)(gpio_num_t pin) = led_off_pin_impl;
+void led_off_pin_impl(gpio_num_t pin)
 {
     gpio_set_level_impl(pin, LED_OFF_LEVEL);
 }
@@ -30,7 +34,8 @@ void led_setup(void)
     led_setup_pin(LED_BUILTIN);
 }
 
-void led_setup_pin(gpio_num_t pin)
+void (*led_setup_pin)(gpio_num_t pin) = led_setup_pin_impl;
+void led_setup_pin_impl(gpio_num_t pin)
 {
     //must configure IO before using it (the built in leds worked by accident)
     gpio_config_t io_conf;

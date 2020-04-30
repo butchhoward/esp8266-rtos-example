@@ -7,15 +7,14 @@
    CONDITIONS OF ANY KIND, either express or implied.
 */
 #include <stdio.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include "led.h"
 
 void app_main()
 {
     printf("Blinky!\n");
-    led_setup();
-    led_on();
-    vTaskDelay(2000 / portTICK_RATE_MS);
-    led_off();
+    blinken_setup();
+
+    while (true)
+    {
+        blinken_loop();
+    }
 }
