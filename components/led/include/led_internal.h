@@ -3,7 +3,7 @@
 
 #include <driver/gpio.h>
 
-#define LED_BUILTIN GPIO_NUM_16
+#define LED_BUILTIN GPIO_NUM_0
 #define LOW_LEVEL 0
 #define HIGH_LEVEL 1
 
@@ -13,6 +13,7 @@
 
 extern esp_err_t (*gpio_set_level_impl)(gpio_num_t, uint32_t);
 extern esp_err_t (*gpio_set_direction_impl)(gpio_num_t, gpio_mode_t);
+extern esp_err_t (*gpio_config_impl)(const gpio_config_t *gpio_cfg);
 
 
 #endif
