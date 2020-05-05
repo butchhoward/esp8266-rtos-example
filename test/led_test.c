@@ -9,7 +9,7 @@
 
 DEFINE_FFF_GLOBALS;
 
-FAKE_VALUE_FUNC(esp_err_t, gpio_set_level_mock,gpio_num_t, uint32_t);
+FAKE_VALUE_FUNC(esp_err_t, gpio_set_level_mock, gpio_num_t, uint32_t);
 FAKE_VALUE_FUNC(esp_err_t, gpio_set_direction_mock, gpio_num_t, gpio_mode_t);
 
 //Faking this is limited because the pointer that is passed is on the stack during led_setup, so is 
@@ -21,11 +21,16 @@ FAKE_VALUE_FUNC(esp_err_t, gpio_set_direction_mock, gpio_num_t, gpio_mode_t);
 
 TEST_GROUP(led);
 
+esp_err_t ESP_OK_RETURNS[1] = { ESP_OK };
+
 TEST_SETUP(led) 
 {
     FFF_RESET_HISTORY();
     RESET_FAKE(gpio_set_level_mock);
     RESET_FAKE(gpio_set_direction_mock);
+    
+    SET_RETURN_SEQ(gpio_set_level_mock, ESP_OK_RETURNS, 1);
+    SET_RETURN_SEQ(gpio_set_direction_mock, ESP_OK_RETURNS, 1);
     clear_gpio_config_fake_last_arg();
 }
 
